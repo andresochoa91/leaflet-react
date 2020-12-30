@@ -2,7 +2,7 @@ import React from 'react';
 import { Marker, Popup } from "react-leaflet";
 
 
-function Something() {
+function CurrentLocation() {
   return (
     <div>
       <Marker position={[37.746936, -122.472574]}>
@@ -14,4 +14,4 @@ function Something() {
   )
 }
 
-export default Something
+export default CurrentLocation

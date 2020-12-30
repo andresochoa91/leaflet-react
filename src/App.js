@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
-import Something from './Something';
+import CurrentLocation from './CurrentLocation';
 import "leaflet/dist/leaflet.css";
-import L, { map } from 'leaflet';
+import L from 'leaflet';
 import marker_icon_2x from "leaflet/dist/images/marker-icon-2x.png";
 import marker_icon from "leaflet/dist/images/marker-icon.png"
 import marker_shadow from "leaflet/dist/images/marker-shadow.png";
-import store_icon from './store.png';
 
 const App = () => {
 
@@ -21,7 +20,7 @@ const App = () => {
 
   return (
     <div>
-      <MapContainer center={[37.746936, -122.472574]} zoom={18} style={{ height: "300px", width: "700px" }}>
+      <MapContainer center={[37.746936, -122.472574]} zoom={18} style={{ height: "400px", width: "700px" }}>
         {/* <MapConsumer>
           {
             (map) => {
@@ -34,30 +33,32 @@ const App = () => {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Something />
+        <CurrentLocation />
         <Circle
           center={[37.746936, -122.472574]} 
           radius={500}
           pathOptions={{ 
-            stroke: false, 
             fillColor: "#00a", 
-            background: store_icon 
+            stroke: false 
+          }}
+        />
+        <Circle
+          center={[37.746936, -122.472574]} 
+          radius={100}
+          pathOptions={{ 
+            fillColor: "#00a",
+            weight: 1 
+          }}
+        />
+        <Circle 
+          radius={2} 
+          center={[37.746936, -122.472574]} 
+          pathOptions={{ 
+            color: "#00a",
+            fillColor: "#00a",
+            weight: 6, 
           }}
         >
-          <Circle
-            center={[37.746936, -122.472574]} 
-            radius={100}
-            pathOptions={{ 
-              fillColor: "#00a",
-              weight: 1, 
-              background: store_icon 
-            }}
-          >
-            <Circle 
-              radius={5} 
-              center={[37.746936, -122.472574]} 
-            />
-          </Circle>
           <Popup>yayaya</Popup>  
         </Circle>
       </MapContainer>
