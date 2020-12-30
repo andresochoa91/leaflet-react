@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import CurrentLocation from './CurrentLocation';
 import "leaflet/dist/leaflet.css";
@@ -9,6 +9,30 @@ import marker_shadow from "leaflet/dist/images/marker-shadow.png";
 
 const App = () => {
 
+  const [ lat, setLat ] = useState(0);
+  const [ lng, setLng ] = useState(0);
+
+  let address = "550 Rivera St.";
+  let city = "San Francisco";
+  let state = "CA";
+  let zipCode = "94116";
+
+  address = address.replace(/ /g, "+");
+  console.log(address)
+
+  const apiKey = "HCIHt1mV9k4GyPpFDXrtDeMyANgtxZZs";
+  const mapQuestUrl = `http://www.mapquestapi.com/geocoding/v1/address?key=${apiKey}&location=${address},${city},${state},${zipCode}`;
+
+  fetch(mapQuestUrl)
+  .then(response => response.json())
+  .then(data => {
+    const { lat, lng } = data.results[0].locations[0].latLng
+    setLat(lat);
+    setLng(lng);
+  })
+  .catch(console.error);
+
+
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
     L.Icon.Default.mergeOptions({
@@ -16,11 +40,12 @@ const App = () => {
       iconUrl: marker_icon,
       shadowUrl: marker_shadow,
     });
-  }, []);
+
+  }, [mapQuestUrl]);
 
   return (
     <div>
-      <MapContainer center={[37.746936, -122.472574]} zoom={18} style={{ height: "400px", width: "700px" }}>
+      <MapContainer center={[37.746936, -122.472574]} zoom={12} style={{ height: "400px", width: "700px" }}>
         {/* <MapConsumer>
           {
             (map) => {
@@ -33,8 +58,11 @@ const App = () => {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <CurrentLocation />
-        <Circle
+        <CurrentLocation 
+          lat={lat}
+          lng={lng}
+        />
+        {/* <Circle
           center={[37.746936, -122.472574]} 
           radius={500}
           pathOptions={{ 
@@ -60,7 +88,7 @@ const App = () => {
           }}
         >
           <Popup>yayaya</Popup>  
-        </Circle>
+        </Circle> */}
       </MapContainer>
     </div>
   );

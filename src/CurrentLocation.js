@@ -2,12 +2,12 @@ import React from 'react';
 import { Marker, Popup } from "react-leaflet";
 
 
-function CurrentLocation() {
+function CurrentLocation({ lat, lng }) {
   return (
     <div>
-      <Marker position={[37.746936, -122.472574]}>
+      <Marker position={[lat, lng]}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          {lat}{lng}
         </Popup>
       </Marker>
     </div>
