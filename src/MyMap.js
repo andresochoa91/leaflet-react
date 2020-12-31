@@ -41,8 +41,8 @@ const MyMap = ({ lat, lng, stores }) => {
               lng={lng}
             />
             {
-              stores.map((store) => (
-                <Store store={ store }/>
+              stores.map((store, i) => (
+                <Store key={ i } store={ store }/>
               ))
             }
           </MapContainer>

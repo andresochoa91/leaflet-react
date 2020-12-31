@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ImageForm from "./ImageForm";
 import MyMap from './MyMap';
 
 const App = () => {
@@ -33,7 +34,6 @@ const App = () => {
   ];
 
   address = address.replace(/ /g, "+");
-  console.log(address)
 
   const apiKey = "HCIHt1mV9k4GyPpFDXrtDeMyANgtxZZs";
   const mapQuestUrl = `http://www.mapquestapi.com/geocoding/v1/address?key=${apiKey}&location=${address},${city},${state},${zipCode}`;
@@ -50,11 +50,14 @@ const App = () => {
   }, [mapQuestUrl]);
 
   return (
-    <MyMap
-      lat={ lat } 
-      lng={ lng } 
-      stores={ stores }
-    />
+    <>
+      <ImageForm />
+      <MyMap
+        lat={ lat } 
+        lng={ lng } 
+        stores={ stores }
+      />
+    </>
   );
 };
 
